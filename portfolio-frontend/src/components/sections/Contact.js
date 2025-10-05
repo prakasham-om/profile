@@ -58,12 +58,14 @@ const Contact = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+
     if (errors[name]) setErrors(prev => ({ ...prev, [name]: "" }));
+
     if (name === "email") {
       setOtpSent(false);
       setOtpVerified(false);
       setOtp("");
-      setOtpError("");
+      setOtpError(""); // clear previous OTP error
     }
   };
 
@@ -73,7 +75,9 @@ const Contact = () => {
     if (!formData.email.trim()) newErrors.email = "Email is required";
     else if (!validateEmail(formData.email)) newErrors.email = "Invalid email";
     if (!formData.subject.trim()) newErrors.subject = "Subject is required";
-    if (!formData.message.trim() || formData.message.length < 10) newErrors.message = "Message must be at least 10 characters";
+    if (!formData.message.trim() || formData.message.length < 10)
+      newErrors.message = "Message must be at least 10 characters";
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -86,11 +90,15 @@ const Contact = () => {
     try {
       setOtpLoading(true);
       const res = await contactAPI.sendOtp({ email: formData.email, name: formData.name });
-      if (res.success) setOtpSent(true);
-      else setOtpError(res.message || "Failed to send OTP");
+      if (res.success) {
+        setOtpSent(true);
+        setOtpError("");
+      } else setOtpError(res.message || "Failed to send OTP");
     } catch {
       setOtpError("Failed to send OTP");
-    } finally { setOtpLoading(false); }
+    } finally {
+      setOtpLoading(false);
+    }
   };
 
   const verifyOtpHandler = async () => {
@@ -101,40 +109,73 @@ const Contact = () => {
     try {
       setOtpLoading(true);
       const res = await contactAPI.verifyOtp({ email: formData.email, otp });
-      if (res.success) setOtpVerified(true);
-      else setOtpError(res.message || "OTP verification failed");
+      if (res.success) {
+        setOtpVerified(true);
+        setOtpError("");
+      } else {
+        setOtpError(res.message || "OTP verification failed");
+      }
     } catch {
       setOtpError("OTP verification failed");
-    } finally { setOtpLoading(false); }
+    } finally {
+      setOtpLoading(false);
+    }
   };
 
   const handleSubmit = async () => {
-    if (!otpVerified) { setOtpError("Verify your email first"); return; }
+    if (!otpVerified) {
+      setOtpError("Verify your email first");
+      return;
+    }
+
     if (!validateForm()) return;
+
     setIsSubmitting(true);
     setSubmitStatus(null);
+
     try {
       const result = await contactAPI.sendMessage(formData);
       if (result.success) {
         setSubmitStatus("success");
         setFormData({ name: "", email: "", subject: "", message: "" });
-        setOtpSent(false); setOtp(""); setOtpVerified(false);
-      } else setSubmitStatus("error");
-    } catch { setSubmitStatus("error"); }
-    finally { setIsSubmitting(false); }
+        setOtpSent(false);
+        setOtp("");
+        setOtpError("");
+        setOtpVerified(false); // reset verification after successful send
+      } else {
+        setSubmitStatus("error");
+      }
+    } catch {
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <section id="contact" className="py-12 px-4">
       <div className="container mx-auto max-w-md">
         {/* Header */}
-        <motion.div className="text-center mb-8" variants={ANIMATION_VARIANTS.fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <h2 className="text-3xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Contact Me</h2>
+        <motion.div
+          className="text-center mb-8"
+          variants={ANIMATION_VARIANTS.fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <h2 className="text-3xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            Contact Me
+          </h2>
           <p className="text-gray-400 text-sm">Fill out the form below and I'll get back to you soon.</p>
         </motion.div>
 
         {/* Form */}
-        <motion.div variants={ANIMATION_VARIANTS.fadeInUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+        <motion.div
+          variants={ANIMATION_VARIANTS.fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
           <div className="bg-gray-900/50 rounded-2xl p-6 border border-gray-700 shadow-inner space-y-4">
             <InputField label="Full Name *" name="name" value={formData.name} onChange={handleInputChange} error={errors.name} placeholder="Your full name" />
             <InputField label="Email *" name="email" value={formData.email} onChange={handleInputChange} error={errors.email || otpError} placeholder="your.email@example.com" />

@@ -9,9 +9,9 @@ export const PERSONAL_INFO = {
   location: "Bangalore, Karnataka, India",
   profileImage: "/Profile.jpg",
   aboutImage: "http://getwallpapers.com/wallpaper/full/7/c/2/1173099-best-developer-wallpaper-hd-1920x1280-htc.jpg",
-  experience: "4+ Years",
+  experience: "4+",
   projectsCompleted: "5+",
-  clientsSatisfied: "5+",
+  clientsSatisfied: "3+",
   degree: "Bachelor of Science in Computer Science",
   university: "Khallikote Autonomous College, Berhampur,Odisha",
 };
