@@ -171,7 +171,7 @@ const Skills = () => {
             Skills & Expertise
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Skills with realistic water wave animation
+            Showcasing my proficiency in modern web technologies and frameworks that drive exceptional digital experiences.
           </p>
         </motion.div>
 
