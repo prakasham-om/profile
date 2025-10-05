@@ -29,7 +29,7 @@ app.use(helmet());
 // 2. CORS configuration - allows frontend to communicate with backend
 app.use(
   cors({
-    origin: ["https://profile-six-roan.vercel.app/","http://localhost:3000", "http://127.0.0.1:3001"],
+    origin: ["https://profile-six-roan.vercel.app","http://localhost:3000", "http://127.0.0.1:3001"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
