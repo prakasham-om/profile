@@ -20,6 +20,10 @@ const userRoutes = require("./routes/user");
 // Initialize Express App
 const app = express();
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the Portfolio API");
+});
+
 // Connect to MongoDB database
 connectDB();
 
