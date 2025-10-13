@@ -61,7 +61,7 @@ app.use("/uploads", express.static("uploads"));
 
 
 
-app.get("/api/health", (req, res) => {
+app.get("/", (req, res) => {
   res.json({
     status: "OK",
     message: "Portfolio API is running",
