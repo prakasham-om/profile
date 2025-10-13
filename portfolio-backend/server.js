@@ -40,28 +40,27 @@ app.use(
   })
 );
 
-// 3. Rate Limiting - prevents spam and abuse
+
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 min window
-  max: 100, // Limit each IP to 100 requests per windowMS
+  windowMs: 15 * 60 * 1000,
+  max: 100, 
   message: {
     error: "Too many requests from this IP, Please try again later.",
   },
-  standardHeaders: true, // Return rate limit info in the RateLimit headers
-  legacyHeaders: false, // Disable the X-RateLimit headers
+  standardHeaders: true, 
+  legacyHeaders: false, 
 });
 app.use(limiter);
 
-// 4. Body parsing middleware - parses JSON and URL-encoded data
+
 app.use(express.json({ limit: "10mb" })); // Parse JSON Bodies (limit: 10mb for images)
 app.use(express.urlencoded({ extended: true, limit: "10mb" })); // Parse URL-encoded bodies
 
-// 5. Static file serving - serve uploaded files
+
 app.use("/uploads", express.static("uploads"));
 
-// API ROUTES configuration
 
-// Health check route - useful for monitoring
+
 app.get("/api/health", (req, res) => {
   res.json({
     status: "OK",
