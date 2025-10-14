@@ -1,11 +1,9 @@
 {
   "version": 2,
-  "functions": {
-    "portfolio-backend/server.js": {
-      "runtime": "@vercel/node"
-    }
-  },
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/portfolio-backend/server.js" }
+  "builds": [
+    { "src": "portfolio-backend/**/*.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "portfolio-backend/server.js" }
   ]
 }
