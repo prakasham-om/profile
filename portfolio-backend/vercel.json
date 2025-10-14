@@ -4,6 +4,6 @@
     { "src": "portfolio-backend/**/*.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "portfolio-backend/server.js" }
+    { "src": "/api/(.*)", "dest": "/portfolio-backend/server.js" }
   ]
 }
