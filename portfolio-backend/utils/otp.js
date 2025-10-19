@@ -22,5 +22,5 @@ const verifyOtp = async (email, otp) => {
   return { success: true, message: "OTP verified" };
 };
 
-// ✅ Important: export as object
+
 module.exports = { createOtp, verifyOtp };
