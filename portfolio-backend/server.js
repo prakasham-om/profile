@@ -69,11 +69,6 @@ app.get("/", (req, res) => {
   });
 });
 
-
-app.use("*", (req, res) => {
-  res.status(404).json({ success: false, message: "Route not found" });
-});
-
 // Mount route handlers with prefixes
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
