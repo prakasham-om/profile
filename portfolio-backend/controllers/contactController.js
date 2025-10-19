@@ -14,7 +14,13 @@ const createTransporter = () => {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS, // Gmail App Password
     },
-    
+      tls: {
+    rejectUnauthorized: false,
+  },
+  // Add these options:
+  connectionTimeout: 30000, // 30 seconds
+  greetingTimeout: 30000,
+  socketTimeout: 30000,
   });
 };
 
