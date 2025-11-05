@@ -6,21 +6,29 @@ import Button from "../ui/Button";
 import { scrollToSection } from "../../utils/helpers";
 import { PERSONAL_INFO, SOCIAL_LINKS } from "../../utils/constants";
 
+
 const Hero = () => {
   const { scrollY } = useViewportScroll();
 
-  // Background floating shapes
+  // Floating shapes
   const floatX = useTransform(scrollY, [0, 500], [0, 80]);
   const floatY = useTransform(scrollY, [0, 500], [0, -50]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: 0.3 } },
+    visible: { 
+      opacity: 1, 
+      transition: { staggerChildren: 0.2, delayChildren: 0.3 } 
+    },
   };
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: "easeOut" } },
+    visible: { 
+      y: 0, 
+      opacity: 1, 
+      transition: { duration: 0.8, ease: "easeOut" } 
+    },
   };
 
   return (
@@ -28,7 +36,7 @@ const Hero = () => {
       id="home"
       className="relative w-full min-h-screen flex items-center justify-center overflow-hidden px-6 bg-gradient-to-b from-blue-900 to-gray-800"
     >
-      {/* Background Shapes */}
+      {/* Background shapes */}
       <motion.div
         style={{ x: floatX, y: floatY }}
         className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-blue-500/20 blur-3xl animate-float"
@@ -45,13 +53,32 @@ const Hero = () => {
         initial="hidden"
         animate="visible"
       >
-        {/* Profile Image */}
-        <motion.img
-          src={PERSONAL_INFO.profileImage}
-          alt="Profile"
-          className="w-36 h-36 md:w-44 md:h-44 rounded-full mx-auto border-4 border-blue-400/50 shadow-2xl object-cover hover:scale-105 transition-transform duration-500"
+        {/* Profile Image with Company Logo on Border */}
+        <motion.div
+          className="relative inline-block"
           variants={itemVariants}
-        />
+        >
+          <motion.img
+            src={PERSONAL_INFO.profileImage}
+            alt="Profile"
+            className="w-36 h-36 md:w-44 md:h-44 rounded-full mx-auto border-4 border-blue-400/50 shadow-2xl object-cover hover:scale-105 transition-transform duration-500"
+          />
+
+          {/* Company Logo Badge (on the border) */}
+          <div
+          className={`absolute top-3/4 -right-5 transform -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 
+                      rounded-full border-2 border-black bg-black shadow-xl flex items-center justify-center 
+                      hover:scale-110 transition-transform duration-300`}
+          title={PERSONAL_INFO.currentCompany}  // Tooltip on hover
+        >
+          <img
+            src={PERSONAL_INFO.companyLogo}  // Your company logo path
+            alt={PERSONAL_INFO.currentCompany || "Company Logo"}
+            className="w-8 h-8 md:w-10 md:h-10 object-contain"
+          />
+        </div>
+
+        </motion.div>
 
         {/* Name */}
         <motion.h1

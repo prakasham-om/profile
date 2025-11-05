@@ -8,6 +8,8 @@ export const PERSONAL_INFO = {
   phone: "+91-*******143",
   location: "Bangalore, Karnataka, India",
   profileImage: "/Profile.jpg",
+  companyLogo:"/iglobal.png",
+  currentCompany:"Iglobal Consulting Pvt Ltd",
   aboutImage: "http://getwallpapers.com/wallpaper/full/7/c/2/1173099-best-developer-wallpaper-hd-1920x1280-htc.jpg",
   experience: "4+",
   projectsCompleted: "5+",
