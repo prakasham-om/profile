@@ -33,7 +33,7 @@ const About = () => {
     {
       icon: <Mail className="w-4 h-4 text-pink-400" />,
       label: "Email",
-      value: PERSONAL_INFO.email,
+      value: "pr********@g****.com",
       overflow: true,
     },
     {

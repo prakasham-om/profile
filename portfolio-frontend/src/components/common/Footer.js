@@ -57,9 +57,6 @@ const Footer = () => {
           <div className="space-y-3">
             <h4 className="text-lg font-semibold text-white">Get In Touch</h4>
             <p className="text-gray-400 text-sm">
-              <span className="text-white font-medium">Email:</span> {PERSONAL_INFO.email}
-            </p>
-            <p className="text-gray-400 text-sm">
               <span className="text-white font-medium">Location:</span> {PERSONAL_INFO.location}
             </p>
             <p className="text-gray-400 text-sm">
