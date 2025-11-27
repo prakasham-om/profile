@@ -18,7 +18,7 @@ const Experience = () => {
     {
       id: 1,
       title: "Senior Associate",
-      company: "Iglobal Consulting Private Limited",
+      company: "INFO SOFTWARE DEVELOPMENT PVT LTD",
       location: "Bangalore, Karnataka",
       period: "Jul 2021 – Present",
       type: "Full-time",
