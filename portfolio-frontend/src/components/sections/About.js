@@ -109,7 +109,7 @@ const About = () => {
                   Full Stack Developer with 4+ years of experience delivering dashboards, automation tools, and secure applications.
                 </p>
                 <p>
-                  Currently at Iglobal consulting pvt ltd, Bangalore, I specialize in building scalable, user-focused solutions that reduce manual effort and enhance business performance.
+                  Currently at INFO SOFTWARE DEVELOPMENT PVT LTD, I specialize in building scalable, user-focused solutions that reduce manual effort and enhance business performance.
                 </p>
                 <p>
                   Proficient in JavaScript, React, Angular, Node.js, and database management. Passionate about learning new technologies and improving my skills.
