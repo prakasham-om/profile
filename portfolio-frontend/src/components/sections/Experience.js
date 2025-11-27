@@ -20,7 +20,7 @@ const Experience = () => {
       title: "Senior Associate",
       company: "INFO SOFTWARE DEVELOPMENT PVT LTD",
       location: "Bangalore, Karnataka",
-      period: "Jul 2021 – Present",
+      period: "Sep 2021 – Present",
       type: "Full-time",
       description:
         "Developed enterprise-level Health domain applications and Warehouse Management System, improving business processes, reducing manual effort, and enabling real-time KPI tracking.",
