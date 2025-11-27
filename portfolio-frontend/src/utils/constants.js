@@ -9,6 +9,7 @@ export const PERSONAL_INFO = {
   location: "Bangalore, Karnataka, India",
   profileImage: "/Profile.jpg",
   companyLogo:"/info_software.png",
+  companyWebsite:"https://www.infoware-inc.net/",
   currentCompany:" INFO SOFTWARE DEVELOPMENT PVT LTD",
   aboutImage: "http://getwallpapers.com/wallpaper/full/7/c/2/1173099-best-developer-wallpaper-hd-1920x1280-htc.jpg",
   experience: "4+",

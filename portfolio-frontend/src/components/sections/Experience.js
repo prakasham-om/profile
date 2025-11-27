@@ -22,6 +22,7 @@ const Experience = () => {
       location: "Bangalore, Karnataka",
       period: "Sep 2021 – Present",
       type: "Full-time",
+      companyUrl: "https://www.infoware-inc.net/",
       description:
         "Developed enterprise-level Health domain applications and Warehouse Management System, improving business processes, reducing manual effort, and enabling real-time KPI tracking.",
       achievements: [

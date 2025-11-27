@@ -74,6 +74,7 @@ const Hero = () => {
           <img
             src={PERSONAL_INFO.companyLogo}  // Your company logo path
             alt={PERSONAL_INFO.currentCompany || "Company Logo"}
+            onClick={() => window.open(PERSONAL_INFO.companyWebsite, "_blank")}
             className="w-8 h-8 md:w-10 md:h-10 object-contain"
           />
         </div>
