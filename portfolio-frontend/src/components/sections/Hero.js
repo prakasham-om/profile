@@ -113,7 +113,7 @@ const Hero = () => {
             Get In Touch
           </Button>
           <Button
-            onClick={() => window.open("/pc_react_node_4years.pdf", "_blank")}
+            onClick={() => window.open("/react-node-pc.pdf", "_blank")}
             variant="secondary"
             size="lg"
             icon={<Download className="w-4 h-4" />}
