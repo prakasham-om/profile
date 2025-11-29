@@ -74,8 +74,7 @@ const Hero = () => {
           <img
             src={PERSONAL_INFO.companyLogo}  // Your company logo path
             alt={PERSONAL_INFO.currentCompany || "Company Logo"}
-            onClick={() => window.open(PERSONAL_INFO.companyWebsite, "_blank")}
-            className="w-8 h-8 md:w-10 md:h-10 object-contain"
+            className="w-14 h-14 md:w-16 md:h-16 object-contain"
           />
         </div>
 
@@ -114,7 +113,7 @@ const Hero = () => {
             Get In Touch
           </Button>
           <Button
-            onClick={() => window.open("/react-node-pc.pdf", "_blank")}
+            onClick={() => window.open("/psahoo-react-node.pdf", "_blank")}
             variant="secondary"
             size="lg"
             icon={<Download className="w-4 h-4" />}
