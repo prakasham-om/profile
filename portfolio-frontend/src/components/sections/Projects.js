@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { 
   Github, ExternalLink, Eye, Filter, Terminal, 
-  Code,  Layers, Cpu, Zap 
+  Code,  Layers, Cpu, Zap ,Server
 } from "lucide-react";
 import {
   FaReact,
