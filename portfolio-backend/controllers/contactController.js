@@ -1,49 +1,17 @@
 // controllers/contactController.js - Contact controller
 const { validationResult } = require("express-validator");
-const nodemailer = require("nodemailer");
 const Contact = require("../models/Contact");
 const { createOtp, verifyOtp } = require("../utils/otp");
+const { sendOtpEmail, sendContactNotificationToAdmin, sendAutoReplyToSender, sendReplyToUser } = require("../utils/emailService");
 
-// Helper: create nodemailer transporter
-const createTransporter = () => {
-  return nodemailer.createTransport({
-    service: "gmail",
-    port: 587,
-    secure: false,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS, // Gmail App Password
-    },
-      tls: {
-    rejectUnauthorized: false,
-  },
-  // Add these options:
-  connectionTimeout: 30000, // 30 seconds
-  greetingTimeout: 30000,
-  socketTimeout: 30000,
-  });
-};
-
-
-
-// ✅ Send OTP
-// controllers/contactController.js
+// Send OTP
 const sendOtp = async (req, res) => {
   const { email, name } = req.body;
   if (!email) return res.status(400).json({ success: false, message: "Email is required" });
 
   try {
-    // ✅ Await the createOtp function
     const otp = await createOtp(email);
-
-    const transporter = createTransporter();
-    await transporter.sendMail({
-      from: `"${process.env.FROM_NAME}" <${process.env.EMAIL_USER}>`,
-      to: email,
-      subject: "Your OTP for Contact Form",
-      text: `Hi ${name || ""},\n\nYour OTP is: ${otp}. It will expire in 5 minutes.`,
-    });
-
+    await sendOtpEmail({ to: email, name, otp });
     res.json({ success: true, message: "OTP sent to email" });
   } catch (err) {
     console.error("OTP email error:", err.message);
@@ -52,7 +20,7 @@ const sendOtp = async (req, res) => {
 };
 
 const verifyOtpBeforeSubmit = async (req, res, next) => {
-   try {
+  try {
     const { email, otp } = req.body;
     const result = await verifyOtp(email, otp);
     // ✅ Send JSON response even on success
@@ -69,10 +37,6 @@ const verifyOtpBeforeSubmit = async (req, res, next) => {
 
 
 
-
-// @desc    Send contact form message
-// @route   POST /api/contact/send
-// @access  Public
 const sendMessage = async (req, res) => {
   try {
     // Validate input
@@ -281,6 +245,7 @@ const replyToMessage = async (req, res) => {
       .json({ success: false, message: "Server error sending reply" });
   }
 };
+
 
 // @desc    Delete message
 const deleteMessage = async (req, res) => {
