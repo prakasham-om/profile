@@ -63,13 +63,16 @@ const Hero = () => {
     return () => clearTimeout(timer);
   }, [typedText, isDeleting, loopNum]);
 
-  // Mouse tracking
+  // Mouse tracking - disabled on mobile
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const springX = useSpring(mouseX, { damping: 30, stiffness: 200 });
   const springY = useSpring(mouseY, { damping: 30, stiffness: 200 });
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) return;
+
     const handleMouse = (e) => {
       const rect = containerRef.current?.getBoundingClientRect();
       if (rect) {
@@ -83,16 +86,22 @@ const Hero = () => {
     return () => window.removeEventListener("mousemove", handleMouse);
   }, [mouseX, mouseY]);
 
-  // Digital particles
-  const digitalParticles = Array.from({ length: 40 }, (_, i) => ({
-    id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: Math.random() * 3 + 1,
-    duration: Math.random() * 20 + 15,
-    delay: Math.random() * 5,
-    opacity: Math.random() * 0.3 + 0.1,
-  }));
+  // Digital particles - reduced for mobile
+  const getParticles = () => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const count = isMobile ? 15 : 40;
+    return Array.from({ length: count }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 2 + 1,
+      duration: Math.random() * 20 + 15,
+      delay: Math.random() * 5,
+      opacity: Math.random() * 0.2 + 0.05,
+    }));
+  };
+
+  const digitalParticles = getParticles();
 
   return (
     <section
@@ -100,7 +109,7 @@ const Hero = () => {
       id="home"
       className="relative w-full min-h-screen overflow-hidden bg-gradient-to-br from-[#0a0e1a] via-[#0d1b2a] to-[#1a2a3a]"
     >
-      {/* Digital Particles Background */}
+      {/* Digital Particles Background - Mobile optimized */}
       {digitalParticles.map((p) => (
         <motion.div
           key={p.id}
@@ -113,8 +122,8 @@ const Hero = () => {
             opacity: p.opacity,
           }}
           animate={{
-            y: [0, -100, 0],
-            x: [0, 50, 0],
+            y: [0, -50, 0],
+            x: [0, 25, 0],
           }}
           transition={{
             duration: p.duration,
@@ -125,60 +134,62 @@ const Hero = () => {
         />
       ))}
 
-      {/* Grid Pattern */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+      {/* Grid Pattern - lighter on mobile */}
+      <div className="absolute inset-0 opacity-[0.02] md:opacity-[0.03] pointer-events-none">
         <div className="w-full h-full" style={{
           backgroundImage: `
             linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
             linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
           `,
-          backgroundSize: '60px 60px'
+          backgroundSize: '40px 40px'
         }} />
       </div>
 
-      {/* Animated Gradient Orbs */}
+      {/* Animated Gradient Orbs - Hidden on mobile */}
       <motion.div
         style={{ x: springX, y: springY }}
-        className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-blue-500/5 blur-3xl"
+        className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-blue-500/5 blur-3xl hidden md:block"
         animate={{ scale: [1, 1.2, 1] }}
         transition={{ duration: 8, repeat: Infinity }}
       />
       <motion.div
         style={{ x: useTransform(springX, (v) => -v * 0.5), y: useTransform(springY, (v) => -v * 0.5) }}
-        className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-cyan-500/5 blur-3xl"
+        className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-cyan-500/5 blur-3xl hidden md:block"
         animate={{ scale: [1, 1.3, 1] }}
         transition={{ duration: 10, repeat: Infinity, delay: 2 }}
       />
 
       {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-6 h-screen flex items-center">
-        <div className="grid lg:grid-cols-2 gap-12 items-center w-full">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 h-screen flex items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center w-full">
           
           {/* Left Column - Text Content */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            className="space-y-6"
+            className="space-y-4 sm:space-y-6 text-center lg:text-left"
           >
             {/* Status Badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-3 px-4 py-2 mt-2 rounded-lg bg-blue-500/10 border border-blue-400/20 backdrop-blur-sm"
+              className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg bg-blue-500/10 border border-blue-400/20 backdrop-blur-sm mx-auto lg:mx-0"
             >
-              <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-              <span className="text-blue-300 text-sm font-medium">Available for opportunities</span>
+              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-400 animate-pulse" />
+              <span className="text-blue-300 text-xs sm:text-sm font-medium">Available for opportunities</span>
             </motion.div>
+
+            {/* Name */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight">
                 <span className="text-white">I'm </span>
-                <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent block sm:inline">
                   {PERSONAL_INFO.name}
                 </span>
               </h1>
@@ -191,7 +202,7 @@ const Hero = () => {
               transition={{ delay: 0.4 }}
               className="font-mono"
             >
-              <div className="text-xl md:text-2xl text-cyan-400">
+              <div className="text-base sm:text-xl md:text-2xl text-cyan-400">
                 <span className="text-gray-400">{"<"}</span>
                 {typedText}
                 <span className="animate-pulse">|</span>
@@ -204,58 +215,58 @@ const Hero = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="text-gray-400 max-w-lg text-lg leading-relaxed"
+              className="text-gray-400 max-w-lg text-sm sm:text-base md:text-lg leading-relaxed mx-auto lg:mx-0"
             >
               {PERSONAL_INFO.description}
             </motion.p>
 
-            {/* Real Stats - Digital Style */}
+            {/* Stats - Mobile optimized */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.55 }}
-              className="flex flex-wrap gap-8 pt-2"
+              className="flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-8 pt-2"
             >
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-400/20">
-                  <Briefcase className="w-5 h-5 text-blue-400" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="p-1.5 sm:p-2 rounded-lg bg-blue-500/10 border border-blue-400/20">
+                  <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
                 </div>
                 <div>
-                  <div className="text-white font-bold text-lg">4.5+</div>
-                  <div className="text-gray-400 text-xs">Years Experience</div>
+                  <div className="text-white font-bold text-base sm:text-lg">4.5+</div>
+                  <div className="text-gray-400 text-[10px] sm:text-xs">Years</div>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-cyan-500/10 border border-cyan-400/20">
-                  <Award className="w-5 h-5 text-cyan-400" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="p-1.5 sm:p-2 rounded-lg bg-cyan-500/10 border border-cyan-400/20">
+                  <Award className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400" />
                 </div>
                 <div>
-                  <div className="text-white font-bold text-lg">12+</div>
-                  <div className="text-gray-400 text-xs">Projects Delivered</div>
+                  <div className="text-white font-bold text-base sm:text-lg">12+</div>
+                  <div className="text-gray-400 text-[10px] sm:text-xs">Projects</div>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-lg bg-purple-500/10 border border-purple-400/20">
-                  <Globe className="w-5 h-5 text-purple-400" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="p-1.5 sm:p-2 rounded-lg bg-purple-500/10 border border-purple-400/20">
+                  <Globe className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
                 </div>
                 <div>
-                  <div className="text-white font-bold text-lg">8+</div>
-                  <div className="text-gray-400 text-xs">Clients Worldwide</div>
+                  <div className="text-white font-bold text-base sm:text-lg">8+</div>
+                  <div className="text-gray-400 text-[10px] sm:text-xs">Clients</div>
                 </div>
               </div>
             </motion.div>
 
-            {/* Tech Stack Tags */}
+            {/* Tech Stack Tags - Scrollable on mobile */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="flex flex-wrap gap-2"
+              className="flex flex-wrap justify-center lg:justify-start gap-1.5 sm:gap-2 overflow-x-auto pb-2"
             >
               {["React", "Node.js", "TypeScript", "AWS", "Docker", "Kubernetes", "Go", "Python"].map((tag, i) => (
                 <span
                   key={i}
-                  className="px-3 py-1 text-xs font-mono rounded-md bg-gray-800/30 border border-gray-700/30 text-gray-300 hover:border-blue-400/30 hover:text-blue-400 hover:bg-blue-500/5 transition-all cursor-default"
+                  className="px-2 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-xs font-mono rounded-md bg-gray-800/30 border border-gray-700/30 text-gray-300 hover:border-blue-400/30 hover:text-blue-400 hover:bg-blue-500/5 transition-all cursor-default whitespace-nowrap"
                 >
                   #{tag}
                 </span>
@@ -267,12 +278,12 @@ const Hero = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.65 }}
-              className="flex flex-wrap gap-4 pt-2"
+              className="flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4 pt-2"
             >
               <Button
                 onClick={() => scrollToSection("contact")}
-                size="lg"
-                className="group bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-8 py-3 rounded-lg shadow-lg shadow-blue-500/20"
+                size="md"
+                className="group bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-lg shadow-lg shadow-blue-500/20 text-sm sm:text-base"
               >
                 Get In Touch
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -280,20 +291,20 @@ const Hero = () => {
               <Button
                 onClick={() => window.open("/psahoo-react-node.pdf", "_blank")}
                 variant="secondary"
-                size="lg"
+                size="md"
                 icon={<Download className="w-4 h-4" />}
-                className="border-2 border-blue-500/30 hover:border-blue-400/60 text-blue-400 hover:text-blue-300 bg-black/20 backdrop-blur-sm px-8 py-3 rounded-lg"
+                className="border-2 border-blue-500/30 hover:border-blue-400/60 text-blue-400 hover:text-blue-300 bg-black/20 backdrop-blur-sm px-6 sm:px-8 py-2 sm:py-3 rounded-lg text-sm sm:text-base"
               >
                 Download CV
               </Button>
             </motion.div>
 
-            {/* Social Links - Clean and Visible */}
+            {/* Social Links */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.7 }}
-              className="flex gap-4 pt-2"
+              className="flex justify-center lg:justify-start gap-3 sm:gap-4 pt-2"
             >
               {[
                 { href: SOCIAL_LINKS.github, icon: Github, label: "GitHub", color: "hover:text-white" },
@@ -305,22 +316,22 @@ const Hero = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 text-gray-300 hover:bg-white/10 transition-all duration-300 group"
+                  className="p-2 sm:p-3 rounded-lg bg-white/5 backdrop-blur-sm border border-white/10 text-gray-300 hover:bg-white/10 transition-all duration-300 group"
                   whileHover={{ scale: 1.1, y: -3 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <social.icon className={`w-5 h-5 group-hover:scale-110 transition-all ${social.color}`} />
+                  <social.icon className={`w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-all ${social.color}`} />
                 </motion.a>
               ))}
             </motion.div>
           </motion.div>
 
-          {/* Right Column - Profile */}
+          {/* Right Column - Profile - Hidden on mobile, shown on larger screens */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative flex justify-center lg:justify-end"
+            className="hidden lg:flex relative justify-center lg:justify-end"
           >
             <div className="relative">
               {/* Animated Rings */}
@@ -339,7 +350,7 @@ const Hero = () => {
 
               {/* Profile Image */}
               <motion.div
-                className="relative w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-blue-400/30 shadow-2xl shadow-blue-500/20"
+                className="relative w-72 h-72 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-blue-400/30 shadow-2xl shadow-blue-500/20"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
               >
@@ -376,7 +387,7 @@ const Hero = () => {
                 </motion.div>
               </motion.div>
 
-              {/* Floating Stats - Clean Digital Style */}
+              {/* Floating Stats */}
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -413,21 +424,21 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator - Mobile optimized */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer"
+        className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 cursor-pointer"
         onClick={() => scrollToSection("about")}
       >
         <motion.div
-          animate={{ y: [0, 10, 0] }}
+          animate={{ y: [0, 8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="flex flex-col items-center gap-2 text-gray-500 hover:text-blue-400 transition-colors"
+          className="flex flex-col items-center gap-1 sm:gap-2 text-gray-500 hover:text-blue-400 transition-colors"
         >
-          <span className="text-xs uppercase tracking-widest font-light">Scroll Down</span>
-          <ChevronDown className="w-5 h-5" />
+          <span className="text-[10px] sm:text-xs uppercase tracking-widest font-light">Scroll Down</span>
+          <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5" />
         </motion.div>
       </motion.div>
     </section>
