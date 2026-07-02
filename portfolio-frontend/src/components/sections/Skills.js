@@ -1,7 +1,7 @@
 // src/components/sections/Skills.js
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Terminal, Code, Server, Database, Cloud, Layers, Cpu, Zap } from "lucide-react";
+import { Terminal, Server, Database, Cloud, Layers, Cpu } from "lucide-react";
 import {
   FaReact,
   FaAngular,
@@ -165,7 +165,7 @@ const Skills = () => {
             Skills & Expertise
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            <span className="text-blue-400">/* </span>
+            <span className="text-blue-400">*/ </span>
             Technologies and tools I work with
             <span className="text-blue-400"> */</span>
           </p>

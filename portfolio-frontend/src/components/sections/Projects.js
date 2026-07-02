@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { 
   Github, ExternalLink, Eye, Filter, Terminal, 
-  Code, Server, Database, Cloud, Layers, Cpu, Zap 
+  Code,  Layers, Cpu, Zap 
 } from "lucide-react";
 import {
   FaReact,
@@ -343,7 +343,7 @@ const Projects = () => {
             Featured Projects
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            <span className="text-blue-400">/* </span>
+            <span className="text-blue-400">*/ </span>
             A showcase of my recent work and the projects I'm most proud of
             <span className="text-blue-400"> */</span>
           </p>

@@ -1,7 +1,7 @@
 // src/components/ui/Modal.js
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Terminal, Minimize2, Maximize2, Circle } from "lucide-react";
+import { X, Terminal,  Circle } from "lucide-react";
 
 const Modal = ({
   isOpen,
