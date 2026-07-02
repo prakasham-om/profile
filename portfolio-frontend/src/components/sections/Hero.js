@@ -171,8 +171,6 @@ const Hero = () => {
               <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
               <span className="text-blue-300 text-sm font-medium">Available for opportunities</span>
             </motion.div>
-
-            {/* Name */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
