@@ -48,7 +48,7 @@
 // export const contactAPI = {
 
 
-  
+
 //   sendOtp: async ({ email, name }) => {
 //     try {
 //       const response = await api.post("/api/contact/otp", { email, name });
@@ -452,7 +452,7 @@ console.log("API Base URL:", process.env.REACT_APP_API_BASE_URL);
 
 // Create axios instance with base configuration
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL || "https://profile-gk5o.vercel.app/",
+  baseURL: "http://localhost:5000" || "https://profile-gk5o.vercel.app/",
   timeout: 600000, // 60 seconds timeout
   headers: {
     "Content-Type": "application/json",

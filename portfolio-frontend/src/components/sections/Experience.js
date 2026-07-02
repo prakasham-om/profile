@@ -9,8 +9,76 @@ import {
   GraduationCap,
   Award,
   TrendingUp,
+  Terminal,
+  Code,
+  Server,
+  Database,
+  Cloud,
+  Layers,
+  Cpu,
+  Zap,
+  GitBranch,
 } from "lucide-react";
+import {
+  FaReact,
+  FaAngular,
+  FaNodeJs,
+  FaJsSquare,
+  FaHtml5,
+  FaCss3Alt,
+  FaPython,
+  FaAws,
+  FaDocker,
+  FaGitAlt,
+} from "react-icons/fa";
+import {
+  SiTypescript,
+  SiMongodb,
+  SiPostgresql,
+  SiRedis,
+  SiGraphql,
+  SiKubernetes,
+  SiGo,
+  SiRust,
+  SiTerraform,
+  SiJenkins,
+  SiNginx,
+  SiExpress,
+} from "react-icons/si";
 import { ANIMATION_VARIANTS } from "../../utils/constants";
+
+// Map technology names to icons
+const getTechIcon = (tech) => {
+  const iconMap = {
+    "ReactJs": <FaReact className="text-cyan-400" />,
+    "React": <FaReact className="text-cyan-400" />,
+    "Angular": <FaAngular className="text-red-400" />,
+    "Node.js": <FaNodeJs className="text-green-400" />,
+    "JavaScript": <FaJsSquare className="text-yellow-400" />,
+    "TypeScript": <SiTypescript className="text-blue-500" />,
+    "HTML": <FaHtml5 className="text-orange-400" />,
+    "CSS": <FaCss3Alt className="text-blue-400" />,
+    "HTML/CSS": <FaCss3Alt className="text-blue-400" />,
+    "Python": <FaPython className="text-blue-400" />,
+    "Go": <SiGo className="text-cyan-400" />,
+    "Rust": <SiRust className="text-orange-400" />,
+    "MongoDB": <SiMongodb className="text-green-500" />,
+    "PostgreSQL": <SiPostgresql className="text-blue-500" />,
+    "Redis": <SiRedis className="text-red-500" />,
+    "GraphQL": <SiGraphql className="text-pink-400" />,
+    "AWS": <FaAws className="text-orange-400" />,
+    "Docker": <FaDocker className="text-sky-400" />,
+    "Kubernetes": <SiKubernetes className="text-blue-400" />,
+    "Terraform": <SiTerraform className="text-purple-400" />,
+    "Jenkins": <SiJenkins className="text-red-400" />,
+    "Nginx": <SiNginx className="text-green-400" />,
+    "Git": <FaGitAlt className="text-orange-500" />,
+    "Express.js": <SiExpress className="text-gray-400" />,
+    "REST APIs": <Server className="text-blue-400" />,
+    "Excel Automation": <Database className="text-green-400" />,
+  };
+  return iconMap[tech] || <Code className="text-gray-400 w-4 h-4" />;
+};
 
 const Experience = () => {
   // Experience data
@@ -18,7 +86,7 @@ const Experience = () => {
     {
       id: 1,
       title: "Senior Associate",
-      company: "VZURE SOFTWARE NETWORK SOLUTIONS",
+      company: "Signovate Technologies",
       location: "Bangalore, Karnataka",
       period: "Sep 2021 – Present",
       type: "Full-time",
@@ -42,7 +110,7 @@ const Experience = () => {
         "HTML/CSS",
         "REST APIs",
         "Excel Automation",
-        "Angular (Warehouse Project)",
+        "Angular",
       ],
       projects: [
         {
@@ -108,10 +176,10 @@ const Experience = () => {
   ];
 
   const professionalStats = {
-    totalExperience: "4+ Years",
-    projectsCompleted: "5+",
+    totalExperience: "4.5+ Years",
+    projectsCompleted: "12+",
     companiesWorked: 1,
-    technologiesMastered: 10,
+    technologiesMastered: 12,
     performanceImprovements: [
       {
         metric: "Claim Processing Time",
@@ -140,27 +208,27 @@ const Experience = () => {
       transition={{ delay: index * 0.2 }}
     >
       {/* Timeline connector */}
-      <div className="absolute left-6 top-16 w-0.5 h-full bg-gradient-to-b from-purple-400 to-transparent"></div>
+      <div className="absolute left-6 top-16 w-0.5 h-full bg-gradient-to-b from-blue-400 to-transparent"></div>
 
       {/* Timeline dot */}
-      <div className="absolute left-4 top-8 w-4 h-4 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full border-4 border-gray-900"></div>
+      <div className="absolute left-4 top-8 w-4 h-4 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full border-4 border-[#0d1b2a]"></div>
 
       {/* Content card */}
       <div className="ml-16 mb-12">
-        <div className="bg-white/5 rounded-xl p-6 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300">
+        <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-blue-500/10 hover:border-blue-400/30 transition-all duration-300">
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
             <div>
               <h3 className="text-xl font-semibold text-white mb-1">
                 {experience.title}
               </h3>
-              <div className="flex items-center gap-2 text-purple-400 mb-2">
+              <div className="flex items-center gap-2 text-blue-400 mb-2">
                 <Briefcase className="w-4 h-4" />
                 <a
                   href={experience.companyUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-purple-300 transition-colors flex items-center gap-1"
+                  className="hover:text-blue-300 transition-colors flex items-center gap-1"
                 >
                   {experience.company}
                   <ExternalLink className="w-3 h-3" />
@@ -176,26 +244,35 @@ const Experience = () => {
                 <MapPin className="w-4 h-4" />
                 <span>{experience.location}</span>
               </div>
-              <span className="mt-1 px-2 py-1 bg-purple-500/20 text-purple-300 rounded-full text-xs">
+              <span className="mt-1 px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs font-mono">
                 {experience.type}
               </span>
             </div>
           </div>
 
           {/* Description */}
-          <p className="text-gray-300 mb-4">{experience.description}</p>
+          <div className="mb-4">
+            <div className="flex items-center gap-2 text-blue-400/60 font-mono text-xs mb-1">
+              <Terminal className="w-3 h-3" />
+              <span>// Description</span>
+            </div>
+            <p className="text-gray-300">{experience.description}</p>
+          </div>
 
           {/* Key Projects */}
           {experience.projects && (
             <div className="mb-4">
-              <h4 className="text-white font-medium mb-2">Key Projects:</h4>
+              <div className="flex items-center gap-2 text-blue-400/60 font-mono text-xs mb-2">
+                <GitBranch className="w-3 h-3" />
+                <span>// Key Projects</span>
+              </div>
               <div className="space-y-2">
                 {experience.projects.map((project, idx) => (
                   <div
                     key={idx}
-                    className="bg-white/5 rounded-lg p-3 border border-white/10"
+                    className="bg-blue-500/5 rounded-lg p-3 border border-blue-500/10 hover:border-blue-400/30 transition-all"
                   >
-                    <div className="font-medium text-purple-300 mb-1">
+                    <div className="font-medium text-cyan-300 mb-1">
                       {project.name}
                     </div>
                     <div className="text-sm text-gray-300 mb-1">
@@ -208,12 +285,13 @@ const Experience = () => {
                       </div>
                     )}
                     {project.technologies && (
-                      <div className="mt-1 flex flex-wrap gap-1">
+                      <div className="mt-2 flex flex-wrap gap-1">
                         {project.technologies.map((tech, i) => (
                           <span
                             key={i}
-                            className="px-2 py-1 bg-purple-500/20 text-purple-300 rounded-full text-xs"
+                            className="flex items-center gap-1 px-2 py-0.5 bg-blue-500/10 rounded-full text-xs text-gray-300"
                           >
+                            <span className="w-3 h-3">{getTechIcon(tech)}</span>
                             {tech}
                           </span>
                         ))}
@@ -227,14 +305,17 @@ const Experience = () => {
 
           {/* Achievements */}
           <div className="mb-4">
-            <h4 className="text-white font-medium mb-2">Key Achievements:</h4>
+            <div className="flex items-center gap-2 text-blue-400/60 font-mono text-xs mb-2">
+              <Award className="w-3 h-3" />
+              <span>// Achievements</span>
+            </div>
             <ul className="space-y-1">
               {experience.achievements.map((achievement, idx) => (
                 <li
                   key={idx}
                   className="text-gray-300 text-sm flex items-start gap-2"
                 >
-                  <div className="w-1.5 h-1.5 bg-purple-400 rounded-full flex-shrink-0 mt-2"></div>
+                  <span className="text-blue-400 mt-1">▸</span>
                   {achievement}
                 </li>
               ))}
@@ -243,13 +324,17 @@ const Experience = () => {
 
           {/* Technologies */}
           <div>
-            <h4 className="text-white font-medium mb-2">Technologies:</h4>
+            <div className="flex items-center gap-2 text-blue-400/60 font-mono text-xs mb-2">
+              <Code className="w-3 h-3" />
+              <span>// Tech Stack</span>
+            </div>
             <div className="flex flex-wrap gap-2">
               {experience.technologies.map((tech, idx) => (
                 <span
                   key={idx}
-                  className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-xs"
+                  className="flex items-center gap-1.5 px-3 py-1 bg-blue-500/10 border border-blue-400/20 rounded-full text-xs text-gray-300"
                 >
+                  <span className="w-4 h-4">{getTechIcon(tech)}</span>
                   {tech}
                 </span>
               ))}
@@ -262,20 +347,20 @@ const Experience = () => {
 
   const EducationCard = ({ education, index }) => (
     <motion.div
-      className="bg-white/5 rounded-xl p-6 backdrop-blur-sm border border-white/10 mb-6"
+      className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-blue-500/10 hover:border-blue-400/30 transition-all duration-300 mb-6"
       variants={ANIMATION_VARIANTS.fadeInUp}
       transition={{ delay: index * 0.1 }}
     >
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
         <div className="flex items-center gap-3 mb-2 md:mb-0">
-          <div className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg">
+          <div className="p-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg">
             <GraduationCap className="w-5 h-5 text-white" />
           </div>
           <div>
             <h4 className="text-xl font-semibold text-white">
               {education.degree}
             </h4>
-            <p className="text-purple-400">{education.institution}</p>
+            <p className="text-blue-400">{education.institution}</p>
             <p className="text-gray-400 text-sm">{education.location}</p>
           </div>
         </div>
@@ -284,7 +369,7 @@ const Experience = () => {
             <Calendar className="w-4 h-4" />
             <span>{education.period}</span>
           </div>
-          <div className="text-green-400 font-medium">
+          <div className="text-green-400 font-medium font-mono">
             {education.percentage}
           </div>
         </div>
@@ -294,26 +379,32 @@ const Experience = () => {
 
       <div className="grid md:grid-cols-2 gap-4">
         <div>
-          <h5 className="text-white font-medium mb-2">Achievements:</h5>
+          <div className="flex items-center gap-2 text-blue-400/60 font-mono text-xs mb-2">
+            <Award className="w-3 h-3" />
+            <span>// Achievements</span>
+          </div>
           <ul className="space-y-1">
             {education.achievements.map((achievement, idx) => (
               <li
                 key={idx}
                 className="text-gray-300 text-sm flex items-start gap-2"
               >
-                <Award className="w-3 h-3 text-yellow-400 flex-shrink-0 mt-1" />
+                <span className="text-yellow-400 mt-1">•</span>
                 {achievement}
               </li>
             ))}
           </ul>
         </div>
         <div>
-          <h5 className="text-white font-medium mb-2">Relevant Courses:</h5>
+          <div className="flex items-center gap-2 text-blue-400/60 font-mono text-xs mb-2">
+            <Server className="w-3 h-3" />
+            <span>// Relevant Courses</span>
+          </div>
           <div className="flex flex-wrap gap-1">
             {education.relevantCourses.map((course, idx) => (
               <span
                 key={idx}
-                className="px-2 py-1 bg-blue-500/20 text-blue-300 rounded-full text-xs"
+                className="px-2 py-1 bg-blue-500/10 border border-blue-400/20 rounded-full text-xs text-gray-300"
               >
                 {course}
               </span>
@@ -325,7 +416,7 @@ const Experience = () => {
   );
 
   return (
-    <section id="experience" className="py-20 px-6 bg-black/20">
+    <section id="experience" className="py-20 px-6 bg-gradient-to-b from-[#0a0e1a] via-[#0d1b2a] to-[#1a2a3a]">
       <div className="container mx-auto max-w-6xl">
         {/* Section Header */}
         <motion.div
@@ -335,11 +426,17 @@ const Experience = () => {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-500/10 border border-blue-400/20 font-mono text-sm text-blue-400 mb-4">
+            <Terminal className="w-4 h-4" />
+            <span>$ experience --list</span>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
             Experience & Education
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            <span className="text-blue-400">/* </span>
             My professional journey in Health and Warehouse domain projects
+            <span className="text-blue-400"> */</span>
           </p>
         </motion.div>
 
@@ -351,24 +448,38 @@ const Experience = () => {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <div className="text-center p-6 bg-white/5 rounded-xl backdrop-blur-sm border border-white/10">
-            <div className="text-3xl font-bold text-purple-400 mb-2">
+          <motion.div 
+            className="text-center p-6 bg-black/40 backdrop-blur-sm rounded-xl border border-blue-500/10 hover:border-blue-400/30 transition-all group"
+            variants={ANIMATION_VARIANTS.fadeInUp}
+            whileHover={{ y: -5 }}
+          >
+            <div className="text-3xl font-bold text-blue-400 mb-2 group-hover:scale-110 transition-transform">
               {professionalStats.totalExperience}
             </div>
-            <p className="text-gray-400">Professional Experience</p>
-          </div>
-          <div className="text-center p-6 bg-white/5 rounded-xl backdrop-blur-sm border border-white/10">
-            <div className="text-3xl font-bold text-pink-400 mb-2">
+            <p className="text-gray-400 font-mono text-sm">Professional Experience</p>
+          </motion.div>
+          <motion.div 
+            className="text-center p-6 bg-black/40 backdrop-blur-sm rounded-xl border border-blue-500/10 hover:border-blue-400/30 transition-all group"
+            variants={ANIMATION_VARIANTS.fadeInUp}
+            transition={{ delay: 0.1 }}
+            whileHover={{ y: -5 }}
+          >
+            <div className="text-3xl font-bold text-cyan-400 mb-2 group-hover:scale-110 transition-transform">
               {professionalStats.projectsCompleted}
             </div>
-            <p className="text-gray-400">Projects Completed</p>
-          </div>
-          <div className="text-center p-6 bg-white/5 rounded-xl backdrop-blur-sm border border-white/10">
-            <div className="text-3xl font-bold text-blue-400 mb-2">
+            <p className="text-gray-400 font-mono text-sm">Projects Completed</p>
+          </motion.div>
+          <motion.div 
+            className="text-center p-6 bg-black/40 backdrop-blur-sm rounded-xl border border-blue-500/10 hover:border-blue-400/30 transition-all group"
+            variants={ANIMATION_VARIANTS.fadeInUp}
+            transition={{ delay: 0.2 }}
+            whileHover={{ y: -5 }}
+          >
+            <div className="text-3xl font-bold text-purple-400 mb-2 group-hover:scale-110 transition-transform">
               {professionalStats.companiesWorked}
             </div>
-            <p className="text-gray-400">Companies Worked</p>
-          </div>
+            <p className="text-gray-400 font-mono text-sm">Companies Worked</p>
+          </motion.div>
         </motion.div>
 
         {/* Performance Improvements */}
@@ -379,31 +490,35 @@ const Experience = () => {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <h3 className="text-2xl font-bold text-white mb-8 text-center">
-            Key Performance Improvements
-          </h3>
+          <div className="flex items-center justify-center gap-2 text-blue-400/60 font-mono text-sm mb-6">
+            <Zap className="w-4 h-4" />
+            <span>$ performance --metrics</span>
+          </div>
           <div className="grid md:grid-cols-3 gap-6">
             {professionalStats.performanceImprovements.map(
               (improvement, index) => (
-                <div
+                <motion.div
                   key={index}
-                  className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl p-6 border border-purple-400/20"
+                  className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-xl p-6 border border-blue-400/20 hover:border-blue-400/40 transition-all group"
+                  whileHover={{ y: -5 }}
+                  variants={ANIMATION_VARIANTS.fadeInUp}
+                  transition={{ delay: index * 0.1 }}
                 >
-                  <div className="text-2xl font-bold text-white mb-2">
+                  <div className="text-2xl font-bold text-cyan-400 mb-2 group-hover:scale-105 transition-transform">
                     {improvement.improvement}
                   </div>
-                  <div className="text-purple-400 font-medium mb-2">
+                  <div className="text-blue-300 font-medium mb-2 font-mono text-sm">
                     {improvement.metric}
                   </div>
-                  <p className="text-gray-300 text-sm">
+                  <p className="text-gray-400 text-sm">
                     {improvement.description}
                     {improvement.from && improvement.to && (
-                      <span className="block mt-1 text-xs">
-                        From {improvement.from} to {improvement.to}
+                      <span className="block mt-1 text-xs text-gray-500 font-mono">
+                        {improvement.from} → {improvement.to}
                       </span>
                     )}
                   </p>
-                </div>
+                </motion.div>
               )
             )}
           </div>
@@ -411,15 +526,16 @@ const Experience = () => {
 
         {/* Experience Timeline */}
         <div className="mb-16">
-          <motion.h3
-            className="text-2xl font-bold text-white mb-8 text-center"
+          <motion.div
+            className="flex items-center justify-center gap-2 text-blue-400/60 font-mono text-sm mb-6"
             variants={ANIMATION_VARIANTS.fadeInUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
-            Professional Experience
-          </motion.h3>
+            <Briefcase className="w-4 h-4" />
+            <span>$ experience --timeline</span>
+          </motion.div>
 
           <motion.div
             className="relative"
@@ -445,9 +561,10 @@ const Experience = () => {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <h3 className="text-2xl font-bold text-white mb-8 text-center">
-            Education
-          </h3>
+          <div className="flex items-center justify-center gap-2 text-blue-400/60 font-mono text-sm mb-6">
+            <GraduationCap className="w-4 h-4" />
+            <span>$ education --details</span>
+          </div>
 
           <motion.div
             variants={ANIMATION_VARIANTS.staggerContainer}

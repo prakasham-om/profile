@@ -1,6 +1,7 @@
 // src/components/common/Footer.js
 import React from "react";
-import { Github, Linkedin, Mail, Heart, ArrowUp } from "lucide-react";
+import { motion } from "framer-motion";
+import { Github, Linkedin, Mail, Heart, ArrowUp, Terminal, Code, Zap } from "lucide-react";
 import { PERSONAL_INFO, SOCIAL_LINKS } from "../../utils/constants";
 import { scrollToSection } from "../../utils/helpers";
 
@@ -21,53 +22,117 @@ const Footer = () => {
     { label: "Contact", id: "contact" },
   ];
 
+  const techStack = [
+    { name: "React", color: "text-cyan-400" },
+    { name: "Node.js", color: "text-green-400" },
+    { name: "Tailwind", color: "text-blue-400" },
+    { name: "Framer", color: "text-purple-400" },
+  ];
+
   return (
-    <footer className="bg-gray-900 text-gray-300 relative z-10">
-      <div className="container mx-auto px-6 py-12">
+    <footer className="relative bg-gradient-to-b from-[#0d1b2a] to-[#0a0e1a] border-t border-blue-500/10 overflow-hidden">
+      {/* Decorative Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"></div>
+      <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
+      
+      <div className="container mx-auto px-6 py-12 relative z-10">
         {/* Top Grid */}
         <div className="grid md:grid-cols-3 gap-10 mb-10">
           {/* Brand Section */}
-          <div className="space-y-3">
-            <h3 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              {PERSONAL_INFO.name}
-            </h3>
-            <p className="text-gray-400 text-sm">{PERSONAL_INFO.title}</p>
-            <p className="text-gray-400 text-sm leading-relaxed">
-              Building exceptional digital experiences with modern web technologies.
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="space-y-3"
+          >
+            <div className="flex items-center gap-2">
+              <Terminal className="w-5 h-5 text-blue-400" />
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                {PERSONAL_INFO.name}
+              </h3>
+            </div>
+            <p className="text-gray-400 text-sm font-mono">
+              <Code className="w-3 h-3 inline mr-1 text-blue-400" />
+              {PERSONAL_INFO.title}
             </p>
-          </div>
+            <p className="text-gray-500 text-sm leading-relaxed font-mono">
+              <span className="text-blue-400">// </span>
+              Building scalable, cloud-native solutions with modern technologies.
+            </p>
+            
+            {/* Tech Stack Tags */}
+            <div className="flex flex-wrap gap-2 pt-2">
+              {techStack.map((tech, index) => (
+                <span
+                  key={index}
+                  className={`px-2 py-1 text-xs font-mono rounded-md bg-gray-800/30 border border-gray-700/30 ${tech.color}`}
+                >
+                  {tech.name}
+                </span>
+              ))}
+            </div>
+          </motion.div>
 
           {/* Quick Links */}
-          <div className="space-y-3">
-            <h4 className="text-lg font-semibold text-white">Quick Links</h4>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="space-y-3"
+          >
+            <div className="flex items-center gap-2">
+              <Zap className="w-4 h-4 text-cyan-400" />
+              <h4 className="text-lg font-semibold text-white font-mono">Quick Links</h4>
+            </div>
             <div className="grid grid-cols-2 gap-2">
               {quickLinks.map((link) => (
                 <button
                   key={link.id}
                   onClick={() => scrollToSection(link.id)}
-                  className="text-left text-gray-400 hover:text-purple-400 transition-all text-sm font-medium"
+                  className="text-left text-gray-400 hover:text-blue-400 transition-all text-sm font-mono hover:translate-x-1 transform duration-200"
                 >
-                  {link.label}
+                  <span className="text-blue-400/30">$</span> {link.label.toLowerCase()}
                 </button>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Contact Info */}
-          <div className="space-y-3">
-            <h4 className="text-lg font-semibold text-white">Get In Touch</h4>
-            <p className="text-gray-400 text-sm">
-              <span className="text-white font-medium">Location:</span> {PERSONAL_INFO.location}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="space-y-3"
+          >
+            <div className="flex items-center gap-2">
+              <Mail className="w-4 h-4 text-purple-400" />
+              <h4 className="text-lg font-semibold text-white font-mono">Get In Touch</h4>
+            </div>
+            <p className="text-gray-400 text-sm font-mono">
+              <span className="text-blue-400">// </span>
+              <span className="text-gray-500">location:</span> {PERSONAL_INFO.location}
             </p>
-            <p className="text-gray-400 text-sm">
-              <span className="text-white font-medium">Phone:</span> {PERSONAL_INFO.phone}
+            <p className="text-gray-400 text-sm font-mono">
+              <span className="text-blue-400">// </span>
+              <span className="text-gray-500">phone:</span> {PERSONAL_INFO.phone}
             </p>
-          </div>
+            <p className="text-gray-400 text-sm font-mono">
+              <span className="text-blue-400">// </span>
+              <span className="text-gray-500">status:</span> 
+              <span className="text-green-400 ml-1">● active</span>
+            </p>
+          </motion.div>
         </div>
 
         {/* Social Links & Back to Top */}
-        <div className="flex flex-col md:flex-row items-center justify-between border-t border-gray-700 pt-6 gap-4 md:gap-0">
-          <div className="flex items-center gap-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="flex flex-col md:flex-row items-center justify-between border-t border-blue-500/10 pt-6 gap-4 md:gap-0"
+        >
+          <div className="flex items-center gap-4">
+            <span className="text-gray-500 text-xs font-mono">$ social --connect</span>
             {socialLinks.map((social, idx) => (
               <a
                 key={idx}
@@ -75,30 +140,47 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="text-gray-400 hover:text-purple-400 transition-transform transform hover:scale-110"
+                className="p-2.5 rounded-xl bg-gray-800/30 border border-gray-700/30 text-gray-400 hover:text-blue-400 hover:border-blue-400/50 hover:bg-blue-500/10 transition-all duration-300 group"
               >
-                {social.icon}
+                <span className="group-hover:scale-110 transition-transform block">
+                  {social.icon}
+                </span>
               </a>
             ))}
           </div>
 
           <button
             onClick={() => scrollToSection("home")}
-            className="flex items-center gap-2 text-gray-400 hover:text-purple-400 transition-all group font-medium"
+            className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-all group font-mono text-sm"
             aria-label="Back to top"
           >
-            <span className="text-sm">Back to top</span>
+            <span>$ scroll --top</span>
             <ArrowUp className="w-4 h-4 transition-transform group-hover:-translate-y-1" />
           </button>
-        </div>
+        </motion.div>
 
         {/* Copyright */}
-        <div className="text-center pt-8 border-t border-gray-700 mt-8">
-          <p className="text-gray-400 text-sm flex items-center justify-center gap-2 flex-wrap">
-            © {currentYear} {PERSONAL_INFO.name}. Made with{" "}
-            <Heart className="w-4 h-4 text-red-500 animate-pulse" /> using React & Tailwind CSS.
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="text-center pt-8 border-t border-blue-500/10 mt-8"
+        >
+          <p className="text-gray-500 text-sm font-mono flex items-center justify-center gap-2 flex-wrap">
+            <span>© {currentYear}</span>
+            <span className="text-gray-600">|</span>
+            <span className="text-blue-400/60">$</span>
+            <span>echo "Built with</span>
+            <Heart className="w-3 h-3 text-red-400 animate-pulse" />
+            <span>using React & Tailwind"</span>
+            <span className="text-gray-600">|</span>
+            <span className="text-gray-600 text-xs">{PERSONAL_INFO.name}</span>
           </p>
-        </div>
+          <p className="text-gray-600 text-xs font-mono mt-1">
+            <span className="text-blue-400/40">// </span>
+            All rights reserved. Made with passion for clean code.
+          </p>
+        </motion.div>
       </div>
     </footer>
   );
