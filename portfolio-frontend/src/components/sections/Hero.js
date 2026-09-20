@@ -436,7 +436,7 @@ const Hero = () => {
               className="flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4 pt-2"
             >
               <button
-                onClick={() => window.open("/psahoo-react-node.pdf", "_blank")}
+                onClick={() => window.open("/pc_mern.pdf", "_blank")}
                 className="border-2 border-green-500/30 hover:border-green-400/60 text-green-400 hover:text-green-300 bg-black/40 backdrop-blur-sm px-6 sm:px-8 py-2 sm:py-3 rounded-lg text-sm sm:text-base font-mono flex items-center justify-center transition-all duration-300"
               >
                 <Download className="w-4 h-4 mr-2" />
