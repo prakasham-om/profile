@@ -8,7 +8,7 @@ import Button from "../ui/Button";
 import { contactAPI } from "../../services/api";
 import { PERSONAL_INFO, SOCIAL_LINKS } from "../../utils/constants";
 
-// OTP INPUT COMPONENT
+// OTP INPUT COMPONENT - Mobile optimized
 const OtpInput = ({ value, setValue }) => {
   const handleInput = (digit, index) => {
     if (!/^[0-9]?$/.test(digit)) return;
@@ -17,18 +17,26 @@ const OtpInput = ({ value, setValue }) => {
     const newOtp = arr.join("");
     setValue(newOtp);
     if (digit && index < 5) {
-      document.getElementById(`otp-${index + 1}`).focus();
+      document.getElementById(`otp-${index + 1}`)?.focus();
     }
   };
 
   const handleBackspace = (e, index) => {
     if (e.key === "Backspace" && !value[index] && index > 0) {
-      document.getElementById(`otp-${index - 1}`).focus();
+      document.getElementById(`otp-${index - 1}`)?.focus();
+    }
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pastedData = e.clipboardData.getData("text/plain").slice(0, 6);
+    if (/^[0-9]+$/.test(pastedData)) {
+      setValue(pastedData);
     }
   };
 
   return (
-    <div className="flex gap-3 justify-center">
+    <div className="flex gap-2 sm:gap-3 justify-center">
       {Array(6).fill("").map((_, index) => (
         <input
           key={index}
@@ -37,7 +45,8 @@ const OtpInput = ({ value, setValue }) => {
           value={value[index] || ""}
           onChange={(e) => handleInput(e.target.value, index)}
           onKeyDown={(e) => handleBackspace(e, index)}
-          className="w-12 h-14 text-center text-white bg-gray-800/50 border-2 border-gray-600 rounded-xl text-xl font-mono focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+          onPaste={handlePaste}
+          className="w-10 h-12 sm:w-12 sm:h-14 text-center text-white bg-gray-800/50 border-2 border-gray-600 rounded-xl text-lg sm:text-xl font-mono focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all"
         />
       ))}
     </div>
@@ -146,114 +155,114 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 px-6 bg-gradient-to-b from-[#0a0e1a] via-[#0d1b2a] to-[#1a2a3a]">
+    <section id="contact" className="py-12 sm:py-20 px-4 sm:px-6 bg-gradient-to-b from-[#0a0e1a] via-[#0d1b2a] to-[#1a2a3a]">
       <div className="container mx-auto max-w-6xl">
-        {/* Section Header */}
+        {/* Section Header - Mobile optimized */}
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
           variants={ANIMATION_VARIANTS.fadeInUp}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-500/10 border border-blue-400/20 font-mono text-sm text-blue-400 mb-4">
-            <Terminal className="w-4 h-4" />
+          <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-green-500/10 border border-green-400/20 font-mono text-xs sm:text-sm text-green-400 mb-3 sm:mb-4">
+            <Terminal className="w-3 h-3 sm:w-4 sm:h-4" />
             <span>$ contact --connect</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-4 bg-gradient-to-r from-green-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
             Let's Connect
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-400 text-sm sm:text-lg max-w-2xl mx-auto px-2">
             Have a project in mind? Let's discuss and build something amazing together.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-8">
-          {/* Contact Info - Left Side */}
+        <div className="grid lg:grid-cols-5 gap-6 sm:gap-8">
+          {/* Contact Info - Left Side - Mobile optimized */}
           <motion.div
-            className="lg:col-span-2 space-y-6"
+            className="lg:col-span-2 space-y-4 sm:space-y-6"
             variants={ANIMATION_VARIANTS.fadeInLeft}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-8 border border-blue-500/10">
-              <h3 className="text-xl font-bold text-white mb-6">Contact Information</h3>
+            <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-green-500/10">
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-4 sm:mb-6">Contact Information</h3>
               
               <div className="space-y-4">
-                <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-xl bg-blue-500/10 border border-blue-400/20">
-                    <Mail className="w-5 h-5 text-blue-400" />
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="p-2 sm:p-3 rounded-xl bg-green-500/10 border border-green-400/20 flex-shrink-0">
+                    <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-green-400" />
                   </div>
-                  <div>
-                    <p className="text-gray-400 text-sm">Email</p>
-                    <a href={`mailto:${PERSONAL_INFO.email}`} className="text-white hover:text-blue-400 transition-colors">
+                  <div className="min-w-0">
+                    <p className="text-gray-400 text-xs sm:text-sm">Email</p>
+                    <a href={`mailto:${PERSONAL_INFO.email}`} className="text-white hover:text-green-400 transition-colors text-sm sm:text-base break-all">
                       {PERSONAL_INFO.email}
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-400/20">
-                    <MapPin className="w-5 h-5 text-cyan-400" />
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="p-2 sm:p-3 rounded-xl bg-cyan-500/10 border border-cyan-400/20 flex-shrink-0">
+                    <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400" />
                   </div>
-                  <div>
-                    <p className="text-gray-400 text-sm">Location</p>
-                    <p className="text-white">{PERSONAL_INFO.location}</p>
+                  <div className="min-w-0">
+                    <p className="text-gray-400 text-xs sm:text-sm">Location</p>
+                    <p className="text-white text-sm sm:text-base">{PERSONAL_INFO.location}</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-xl bg-purple-500/10 border border-purple-400/20">
-                    <Phone className="w-5 h-5 text-purple-400" />
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="p-2 sm:p-3 rounded-xl bg-purple-500/10 border border-purple-400/20 flex-shrink-0">
+                    <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" />
                   </div>
-                  <div>
-                    <p className="text-gray-400 text-sm">Phone</p>
-                    <p className="text-white">{PERSONAL_INFO.phone}</p>
+                  <div className="min-w-0">
+                    <p className="text-gray-400 text-xs sm:text-sm">Phone</p>
+                    <p className="text-white text-sm sm:text-base">{PERSONAL_INFO.phone}</p>
                   </div>
                 </div>
               </div>
 
               {/* Social Links */}
-              <div className="mt-8 pt-8 border-t border-gray-700/50">
-                <p className="text-gray-400 text-sm mb-4">Connect with me</p>
+              <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-gray-700/50">
+                <p className="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">Connect with me</p>
                 <div className="flex gap-3">
                   <a
                     href={SOCIAL_LINKS.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-xl bg-gray-800/50 border border-gray-700 text-gray-400 hover:text-white hover:border-blue-400/50 hover:bg-blue-500/10 transition-all"
+                    className="p-2.5 sm:p-3 rounded-xl bg-gray-800/50 border border-gray-700 text-gray-400 hover:text-white hover:border-green-400/50 hover:bg-green-500/10 transition-all"
                   >
-                    <Github className="w-5 h-5" />
+                    <Github className="w-4 h-4 sm:w-5 sm:h-5" />
                   </a>
                   <a
                     href={SOCIAL_LINKS.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-xl bg-gray-800/50 border border-gray-700 text-gray-400 hover:text-blue-400 hover:border-blue-400/50 hover:bg-blue-500/10 transition-all"
+                    className="p-2.5 sm:p-3 rounded-xl bg-gray-800/50 border border-gray-700 text-gray-400 hover:text-green-400 hover:border-green-400/50 hover:bg-green-500/10 transition-all"
                   >
-                    <Linkedin className="w-5 h-5" />
+                    <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
                   </a>
                 </div>
               </div>
             </div>
 
-            {/* Status Card */}
-            <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-2xl p-6 border border-blue-400/20">
+            {/* Status Card - Mobile optimized */}
+            <div className="bg-gradient-to-br from-green-500/10 to-cyan-500/10 rounded-2xl p-4 sm:p-6 border border-green-400/20">
               <div className="flex items-center gap-3">
-                <div className="relative">
-                  <span className="w-3 h-3 rounded-full bg-green-400 animate-pulse"></span>
-                  <span className="absolute inset-0 w-3 h-3 rounded-full bg-green-400 animate-ping opacity-75"></span>
+                <div className="relative flex-shrink-0">
+                  <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-400 animate-pulse"></span>
+                  <span className="absolute inset-0 w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-400 animate-ping opacity-75"></span>
                 </div>
                 <div>
-                  <p className="text-white font-medium">Available for work</p>
-                  <p className="text-gray-400 text-sm">Open to opportunities</p>
+                  <p className="text-white font-medium text-sm sm:text-base">Available for work</p>
+                  <p className="text-gray-400 text-xs sm:text-sm">Open to opportunities</p>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Contact Form - Right Side */}
+          {/* Contact Form - Right Side - Mobile optimized */}
           <motion.div
             className="lg:col-span-3"
             variants={ANIMATION_VARIANTS.fadeInRight}
@@ -261,24 +270,24 @@ const Contact = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-8 border border-blue-500/10">
-              <h3 className="text-xl font-bold text-white mb-6">Send a Message</h3>
+            <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-5 sm:p-8 border border-green-500/10">
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-4 sm:mb-6">Send a Message</h3>
 
               {/* Name Field */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-300 mb-1.5">
+                <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-1.5">
                   Full Name <span className="text-red-400">*</span>
                 </label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-500" />
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="John Doe"
-                    className={`w-full pl-11 pr-4 py-3 bg-gray-800/50 border rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
-                      errors.name ? "border-red-500/50" : "border-gray-700 focus:border-blue-500"
+                    className={`w-full pl-9 sm:pl-11 pr-3 sm:pr-4 py-2.5 sm:py-3 bg-gray-800/50 border rounded-xl text-white text-sm sm:text-base placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all ${
+                      errors.name ? "border-red-500/50" : "border-gray-700 focus:border-green-500"
                     }`}
                   />
                 </div>
@@ -292,19 +301,19 @@ const Contact = () => {
 
               {/* Email Field */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-300 mb-1.5">
+                <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-1.5">
                   Email Address <span className="text-red-400">*</span>
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-500" />
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="john@example.com"
-                    className={`w-full pl-11 pr-4 py-3 bg-gray-800/50 border rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
-                      errors.email || otpError ? "border-red-500/50" : "border-gray-700 focus:border-blue-500"
+                    className={`w-full pl-9 sm:pl-11 pr-3 sm:pr-4 py-2.5 sm:py-3 bg-gray-800/50 border rounded-xl text-white text-sm sm:text-base placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all ${
+                      errors.email || otpError ? "border-red-500/50" : "border-gray-700 focus:border-green-500"
                     }`}
                   />
                 </div>
@@ -316,25 +325,23 @@ const Contact = () => {
                 )}
               </div>
 
-              {/* OTP Section */}
+              {/* OTP Section - Mobile optimized */}
               {!otpVerified && !otpSent && validateEmail(formData.email) && (
                 <div className="mb-4">
-                  <Button
+                  <button
                     onClick={sendOtp}
-                    variant="secondary"
-                    size="sm"
-                    loading={otpLoading}
-                    className="font-medium"
+                    disabled={otpLoading}
+                    className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-green-500/10 border border-green-400/20 rounded-xl text-green-400 hover:bg-green-500/20 transition-all text-sm sm:text-base font-medium"
                   >
-                    <Lock className="w-4 h-4 mr-2" />
-                    Send Verification OTP
-                  </Button>
+                    <Lock className="w-4 h-4" />
+                    {otpLoading ? "Sending..." : "Send Verification OTP"}
+                  </button>
                 </div>
               )}
 
               {otpSent && !otpVerified && (
-                <div className="mb-4 p-4 bg-blue-500/5 rounded-xl border border-blue-400/20">
-                  <p className="text-gray-300 text-sm mb-3 text-center">
+                <div className="mb-4 p-3 sm:p-4 bg-green-500/5 rounded-xl border border-green-400/20">
+                  <p className="text-gray-300 text-xs sm:text-sm mb-3 text-center">
                     Enter the 6-digit OTP sent to your email
                   </p>
                   <OtpInput value={otp} setValue={setOtp} />
@@ -345,42 +352,40 @@ const Contact = () => {
                     </p>
                   )}
                   <div className="flex justify-center mt-3">
-                    <Button
+                    <button
                       onClick={verifyOtpHandler}
-                      variant="primary"
-                      size="sm"
-                      loading={otpLoading}
-                      className="font-medium"
+                      disabled={otpLoading}
+                      className="flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-2.5 bg-green-500 hover:bg-green-600 text-white rounded-xl text-sm sm:text-base font-medium transition-all"
                     >
-                      <Key className="w-4 h-4 mr-2" />
-                      Verify OTP
-                    </Button>
+                      <Key className="w-4 h-4" />
+                      {otpLoading ? "Verifying..." : "Verify OTP"}
+                    </button>
                   </div>
                 </div>
               )}
 
               {otpVerified && (
-                <div className="mb-4 p-3 bg-green-500/10 border border-green-400/20 rounded-xl flex items-center gap-2 text-green-400 text-sm">
-                  <CheckCircle className="w-5 h-5" />
+                <div className="mb-4 p-2.5 sm:p-3 bg-green-500/10 border border-green-400/20 rounded-xl flex items-center gap-2 text-green-400 text-xs sm:text-sm">
+                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                   <span>✓ Email verified successfully</span>
                 </div>
               )}
 
               {/* Subject Field */}
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-300 mb-1.5">
+                <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-1.5">
                   Subject <span className="text-red-400">*</span>
                 </label>
                 <div className="relative">
-                  <MessageSquare className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                  <MessageSquare className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-500" />
                   <input
                     type="text"
                     name="subject"
                     value={formData.subject}
                     onChange={handleInputChange}
                     placeholder="Project Discussion"
-                    className={`w-full pl-11 pr-4 py-3 bg-gray-800/50 border rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
-                      errors.subject ? "border-red-500/50" : "border-gray-700 focus:border-blue-500"
+                    className={`w-full pl-9 sm:pl-11 pr-3 sm:pr-4 py-2.5 sm:py-3 bg-gray-800/50 border rounded-xl text-white text-sm sm:text-base placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all ${
+                      errors.subject ? "border-red-500/50" : "border-gray-700 focus:border-green-500"
                     }`}
                   />
                 </div>
@@ -394,7 +399,7 @@ const Contact = () => {
 
               {/* Message Field */}
               <div className="mb-6">
-                <label className="block text-sm font-medium text-gray-300 mb-1.5">
+                <label className="block text-xs sm:text-sm font-medium text-gray-300 mb-1.5">
                   Message <span className="text-red-400">*</span>
                 </label>
                 <textarea
@@ -404,8 +409,8 @@ const Contact = () => {
                   placeholder="Tell me about your project..."
                   rows="4"
                   maxLength="500"
-                  className={`w-full px-4 py-3 bg-gray-800/50 border rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none ${
-                    errors.message ? "border-red-500/50" : "border-gray-700 focus:border-blue-500"
+                  className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-800/50 border rounded-xl text-white text-sm sm:text-base placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all resize-none ${
+                    errors.message ? "border-red-500/50" : "border-gray-700 focus:border-green-500"
                   }`}
                 />
                 {errors.message && (
@@ -419,34 +424,45 @@ const Contact = () => {
                 </p>
               </div>
 
-              {/* Submit Button */}
-              <Button
+              {/* Submit Button - Mobile optimized */}
+              <button
                 onClick={handleSubmit}
-                variant="primary"
-                size="lg"
-                fullWidth
-                loading={isSubmitting}
-                icon={!isSubmitting && <Send className="w-5 h-5" />}
-                disabled={!otpVerified}
-                className="font-medium text-base"
+                disabled={isSubmitting || !otpVerified}
+                className={`w-full flex items-center justify-center gap-2 px-6 py-3 sm:py-4 rounded-xl text-white text-sm sm:text-base font-medium transition-all ${
+                  !otpVerified 
+                    ? "bg-gray-600 cursor-not-allowed" 
+                    : "bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 shadow-lg shadow-green-500/30"
+                }`}
               >
-                {isSubmitting ? "Sending..." : !otpVerified ? "Verify Email First" : "Send Message"}
-              </Button>
+                {isSubmitting ? (
+                  <>
+                    <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></span>
+                    Sending...
+                  </>
+                ) : !otpVerified ? (
+                  "Verify Email First"
+                ) : (
+                  <>
+                    <Send className="w-4 h-4" />
+                    Send Message
+                  </>
+                )}
+              </button>
 
               {submitStatus && (
-                <div className={`mt-4 p-3 rounded-xl border flex items-center gap-2 ${
+                <div className={`mt-4 p-3 rounded-xl border flex items-center gap-2 text-xs sm:text-sm ${
                   submitStatus === "success"
                     ? "bg-green-500/10 border-green-400/20 text-green-400"
                     : "bg-red-500/10 border-red-400/20 text-red-400"
                 }`}>
                   {submitStatus === "success" ? (
                     <>
-                      <CheckCircle className="w-5 h-5" />
-                      <span>✓ Message sent successfully! I'll get back to you soon.</span>
+                      <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                      <span className="break-words">✓ Message sent successfully! I'll get back to you soon.</span>
                     </>
                   ) : (
                     <>
-                      <AlertCircle className="w-5 h-5" />
+                      <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                       <span>✗ Something went wrong. Please try again.</span>
                     </>
                   )}

@@ -22,7 +22,6 @@ const Header = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
       
-      // Determine active section based on scroll position
       const sections = navItems.map(item => document.getElementById(item.id));
       const scrollPosition = window.scrollY + 100;
 
@@ -41,7 +40,6 @@ const Header = () => {
 
   const handleNavClick = (id) => {
     setIsOpen(false);
-    // Close mobile menu first, then scroll
     setTimeout(() => {
       scrollToSection(id);
     }, 100);
@@ -51,11 +49,11 @@ const Header = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-gradient-to-b from-[#0a0e1a]/95 to-[#0d1b2a]/95 backdrop-blur-lg border-b border-blue-500/10 shadow-lg shadow-blue-500/5"
+          ? "bg-[#0a0e1a]/95 backdrop-blur-lg border-b border-green-500/10 shadow-lg shadow-green-500/5"
           : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto px-6 py-4">
+      <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <motion.a
@@ -64,12 +62,12 @@ const Header = () => {
               e.preventDefault();
               handleNavClick("home");
             }}
-            className="flex items-center gap-2 text-xl font-bold text-white hover:text-blue-400 transition-colors"
+            className="flex items-center gap-2 text-lg sm:text-xl font-bold text-white hover:text-green-400 transition-colors"
             whileHover={{ scale: 1.05 }}
           >
-          
-            <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              {/* Portfolio */}
+            <Terminal className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" />
+            <span className="bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
+              {">_"}
             </span>
           </motion.a>
 
@@ -83,9 +81,9 @@ const Header = () => {
                   e.preventDefault();
                   handleNavClick(item.id);
                 }}
-                className={`px-4 py-2 rounded-lg text-sm font-mono transition-all duration-300 relative ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all duration-300 relative ${
                   activeSection === item.id
-                    ? "text-blue-400"
+                    ? "text-green-400"
                     : "text-gray-400 hover:text-white"
                 }`}
                 whileHover={{ scale: 1.05 }}
@@ -93,13 +91,13 @@ const Header = () => {
               >
                 <span className="relative z-10">
                   {activeSection === item.id && (
-                    <span className="text-blue-400 mr-1">$</span>
+                    <span className="text-green-400 mr-1">$</span>
                   )}
                   {item.label.toLowerCase()}
                 </span>
                 {activeSection === item.id && (
                   <motion.div
-                    className="absolute inset-0 bg-blue-500/10 rounded-lg border border-blue-400/20"
+                    className="absolute inset-0 bg-green-500/10 rounded-lg border border-green-400/20"
                     layoutId="activeNav"
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
@@ -111,10 +109,10 @@ const Header = () => {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-lg text-gray-400 hover:text-white hover:bg-blue-500/10 transition-all"
+            className="md:hidden p-2 rounded-lg text-gray-400 hover:text-white hover:bg-green-500/10 transition-all"
             aria-label="Toggle menu"
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
           </button>
         </div>
 
@@ -125,7 +123,7 @@ const Header = () => {
           transition={{ duration: 0.3 }}
           className="md:hidden overflow-hidden"
         >
-          <nav className="flex flex-col gap-1 py-4 border-t border-blue-500/10 mt-4">
+          <nav className="flex flex-col gap-1 py-3 border-t border-green-500/10 mt-3">
             {navItems.map((item) => (
               <a
                 key={item.id}
@@ -134,15 +132,15 @@ const Header = () => {
                   e.preventDefault();
                   handleNavClick(item.id);
                 }}
-                className={`px-4 py-3 rounded-lg text-sm font-mono transition-all ${
+                className={`px-4 py-2.5 rounded-lg text-sm font-mono transition-all ${
                   activeSection === item.id
-                    ? "bg-blue-500/10 text-blue-400 border border-blue-400/20"
-                    : "text-gray-400 hover:text-white hover:bg-blue-500/5"
+                    ? "bg-green-500/10 text-green-400 border border-green-400/20"
+                    : "text-gray-400 hover:text-white hover:bg-green-500/5"
                 }`}
               >
                 <span className="flex items-center gap-2">
                   {activeSection === item.id && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
                   )}
                   {item.label.toLowerCase()}
                 </span>

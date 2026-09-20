@@ -9,7 +9,7 @@ export const PERSONAL_INFO = {
   location: "Bangalore, Karnataka, India",
   profileImage: "/Profile.jpg",
   companyLogo:"/logo-white.png",
-  companyWebsite:"https://www.vsofl.com/",
+  companyWebsite:"https://signovatetech.com/",
   currentCompany:"Signovate Technologies",
   aboutImage: "http://getwallpapers.com/wallpaper/full/7/c/2/1173099-best-developer-wallpaper-hd-1920x1280-htc.jpg",
   experience: "4+",

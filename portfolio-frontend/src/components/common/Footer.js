@@ -148,15 +148,6 @@ const Footer = () => {
               </a>
             ))}
           </div>
-
-          <button
-            onClick={() => scrollToSection("home")}
-            className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-all group font-mono text-sm"
-            aria-label="Back to top"
-          >
-            <span>$ scroll --top</span>
-            <ArrowUp className="w-4 h-4 transition-transform group-hover:-translate-y-1" />
-          </button>
         </motion.div>
 
         {/* Copyright */}
